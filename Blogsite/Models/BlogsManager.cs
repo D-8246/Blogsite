@@ -13,9 +13,7 @@ namespace Blogsite.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
-        public string[] SplitBody { get; set; }
         public DateTime Date { get; set; }
-        public string Preview { get; set; }
     }
 
     public class Comment
@@ -53,16 +51,6 @@ namespace Blogsite.Models
                     Body = (string)reader["Body"],
                     Date = (DateTime)reader["Date"],
                 };
-                string body = (string)reader["Body"];
-                if (body.Length > 200)
-                {
-                    string bodySub = body.Substring(0, 200);
-                    b.Preview = bodySub + "...";
-                }
-                else
-                {
-                    b.Preview = body;
-                }
                 blogs.Add(b);
             }
             return blogs;
@@ -166,10 +154,7 @@ namespace Blogsite.Models
             return comments;
         }
 
-        public string[] SplitContent(string text)
-        {
-            return text.Split('\n');
-        }
+       
 
 
     }

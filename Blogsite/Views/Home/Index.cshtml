@@ -17,14 +17,24 @@
                         <h2 class="card-title">
                             <a style="text-decoration:none;" href="/home/viewblog?id=@blog.Id">@blog.Title</a>
                         </h2>
-                        <p class="card-text">@blog.Preview</p>
+                        <p class="card-text">
+                            @if (blog.Body.Length > 200)
+                            {
+                                string preview = blog.Body.Substring(0, 200);
+                                <p>@preview...</p>
+                            }
+                            else
+                            {
+                            <p>@blog.Body</p>
+                            }
+                        </p>
                         <a href="/home/viewblog?id=@blog.Id" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
                         Posted on @blog.Date.ToLongDateString();
                     </div>
                 </div>
-            }       
+            }
         </div>
     </div>
 </div>

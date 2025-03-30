@@ -11,7 +11,7 @@
                 <hr>
                 <!-- Date/Time -->
                 <p>Posted on @Model.Blog.Date</p>
-                @foreach (string line in Model.Blog.SplitBody)
+                @foreach (string line in Model.SplitBody)
                 {
                     <p>@line</p>
                 }
