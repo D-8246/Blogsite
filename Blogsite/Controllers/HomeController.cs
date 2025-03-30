@@ -26,7 +26,8 @@ namespace Blogsite.Controllers
                 Blog = manager.GetBlogByID(id),
                 Comments = manager.GetCommentsForBlog(id),
             };
-            vb.SplitBody = vb.Blog.Body.Split(vb.Blog.Body);
+            string[] split = vb.Blog.Body.Split('\n');
+            vb.SplitBody = split;
             vb.CookieResponse = Request.Cookies["commenter-name"];
             return View(vb);
         }
