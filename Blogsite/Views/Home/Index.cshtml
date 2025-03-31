@@ -21,7 +21,7 @@
                             @if (blog.Body.Length > 200)
                             {
                                 string preview = blog.Body.Substring(0, 200);
-                                <p>@preview...</p>
+                            <p>@preview...</p>
                             }
                             else
                             {
@@ -35,6 +35,22 @@
                     </div>
                 </div>
             }
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+                @if (!Model.LastPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="/home/index?page=@(Model.Page+1)">&larr; Older</a>
+                    </li>
+                }
+                @if (!Model.FirstPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="/home/index?page=@(Model.Page-1)">Newer &rarr;</a>
+                    </li>
+                }
+            </ul>
         </div>
     </div>
 </div>
+

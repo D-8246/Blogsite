@@ -10,12 +10,15 @@ namespace Blogsite.Controllers
         private static string _connectionString = @"Data Source=.\sqlexpress;Initial Catalog=Blogsite;Integrated Security=true;TrustServerCertificate=yes;";
         BlogsManager manager = new BlogsManager(_connectionString);
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             IndexViewModel ivm = new IndexViewModel
             {
-                Blogs = manager.GetAllBlogs()
+                Blogs = manager.GetBlogs(page),
+                Page = page,
             };
+            ivm.FirstPage = page == 1;
+            ivm.LastPage = page >= (manager.GetBlogsCount() + 2) / 3;
             return View(ivm);
         }
 

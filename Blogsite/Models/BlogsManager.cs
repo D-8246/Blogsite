@@ -34,11 +34,14 @@ namespace Blogsite.Models
             _connectionString = connectionString;
         }
 
-        public List<Blog> GetAllBlogs()
+        public List<Blog> GetBlogs(int page)
         {
             var connection = new SqlConnection(_connectionString);
             var command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM Blogs";
+            command.CommandText = @"SELECT * FROM Blogs " +
+"ORDER BY Date DESC " +
+"OFFSET @amt ROWS FETCH NEXT 3 ROWS ONLY";
+            command.Parameters.AddWithValue("@amt", (page - 1) * 3);
             connection.Open();
             var reader = command.ExecuteReader();
             List<Blog> blogs = new();
@@ -54,6 +57,15 @@ namespace Blogsite.Models
                 blogs.Add(b);
             }
             return blogs;
+        }
+
+        public int GetBlogsCount()
+        {
+            var connection = new SqlConnection(_connectionString);
+            var command = connection.CreateCommand();
+            command.CommandText = "SELECT COUNT(*) From Blogs ";
+            connection.Open();
+            return (int)command.ExecuteScalar();
         }
 
         public int AddBlog(Blog blog)
@@ -154,7 +166,7 @@ namespace Blogsite.Models
             return comments;
         }
 
-       
+
 
 
     }
